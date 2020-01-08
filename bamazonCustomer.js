@@ -81,6 +81,31 @@ function askCustomerTwo(product) {
     });
 }
 
+// Purchase the desired quanity of the desired item
+function makePurchase(product, quantity) {
+    connection.query(
+      "UPDATE products SET stock_quantity = stock_quantity - ?, product_sales = product_sales + ? WHERE item_id = ?",
+      [quantity, product.price * quantity, product.item_id],
+      function(err, res) {
+        // Let the user know the purchase was successful, re-run loadProducts
+        console.log("\nSuccessfully purchased " + quantity + " " + product.product_name + "'s!");
+        loadProducts();
+      }
+    );
+  }
+  
+  // Check to see if the product the user chose exists in the inventory
+  function checkInventory(choiceId, inventory) {
+    for (var i = 0; i < inventory.length; i++) {
+      if (inventory[i].item_id === choiceId) {
+        // If a matching product is found, return the product
+        return inventory[i];
+      }
+    }
+    // Otherwise return null
+    return null;
+  }
+
 function checkIfWantExit(choice) {
     if(choice.toLowerCase() === "q") {
         console.log("Bye now");
