@@ -1,4 +1,20 @@
 // node JS - mysql & inquire
+var mysql = require("mysql");
+var inquirer = require("inquire");
+
+// Connect first
+var connection = mysql.createConnection({
+    host: "localhost",
+    port: 3306,
+    user: "root",
+    password: "986680Hj!",
+    database: "bamazon"
+});
+
+connection.connect(function(err) {
+    if (err) throw err;
+    runSearch();
+})
 
 // display all of the items available for sale 
 
