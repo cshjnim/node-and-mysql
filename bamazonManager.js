@@ -33,7 +33,7 @@ function managerOptions(products) {
     .prompt({
         type: "list",
         name: "choice",
-        choiceS: ["View Products for Sale", "View Low Inventory", "Add New Product", "Quit"]
+        choiceS: ["View Products for Sale", "View Low Inventory", "Add New Product", "Quit"],
         message: "What do you want to check?"
     })
     .then(function(val){
