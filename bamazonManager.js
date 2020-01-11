@@ -170,3 +170,27 @@ function getProductInfo(departments) {
 }
 
 // add new product to Database
+
+function insertNewProduct(val) {
+    connection.query(
+        "INSERT INTO products (product_name, department_name, price, stock_quantity) VALUES (?, ?, ?, ?)",
+        [val.product_name, val.department_name, val.price, val.quantity],
+        function(err, res) {
+            if (err) throw err;
+            console.log(val.product_name + " ADDED TO BAMAZON!");
+            managerMenu();
+        }
+    );
+}
+
+function getDepartments(cb) {
+    connection.query("SELECT * FROM departments", cb);
+}
+
+function getDepartmentNames(departments) {
+    return departments.map(function(department) {
+        return departments.department_name;
+    });
+}
+
+//add function for checking inventory
