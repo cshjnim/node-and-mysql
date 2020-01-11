@@ -23,7 +23,7 @@ VALUES
 ("Jeggings", "Apparels", 29.99, 84),
 ("LEGO: Princess Castle", "Board Games", 329.99, 25),
 ("Matrix", "Films", 9.99, 12),
-("Levono", "Computers", 1099.99, 38),
+("Levono", "Computers", 999.99, 38),
 ("Denim Jeans", "Apparels", 39.99, 89),
 ("Monopoly", "Board Games", 20.39, 58),
 ("Mad Max", "Films", 19.99, 48),

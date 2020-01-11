@@ -2,6 +2,7 @@
 var mysql = require("mysql");
 var inquirer = require("inquirer");
 
+
 // Connect first
 var connection = mysql.createConnection({
     host: "localhost",
@@ -12,14 +13,16 @@ var connection = mysql.createConnection({
 });
 
 connection.connect(function(err) {
-    if (err) throw err;
+    if (err) {
+        console.error("error connecting: " + err.stack);
+    }
     loadProduct();
-})
+});
 
 // display all of the items available for sale 
 
 function loadProduct() {
-    connection.query("SELECT * FROM products", function(err,res) {
+    connection.query("SELECT * FROM products", function(err, res) {
         if (err) throw err;
         console.table(res);
         askCustomer(res);
@@ -89,7 +92,7 @@ function makePurchase(product, quantity) {
       function(err, res) {
         // Let the user know the purchase was successful, re-run loadProducts
         console.log("\nSuccessfully purchased " + quantity + " " + product.product_name + "'s!");
-        loadProducts();
+        loadProduct();
       }
     );
   }
