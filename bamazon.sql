@@ -1,33 +1,23 @@
-/* create database called "bamazon"*/
 
 DROP DATABASE IF EXISTS bamazon;
-CREATE database bamazon;
+CREATE DATABASE bamazon;
 
 USE bamazon;
 
-/* create a table inside of that database called 'products'*/
-/* The products table should have each of the following columns:
-   * item_id (unique id for each product)
-   * product_name (Name of product)
-   * department_name
-   * price (cost to customer)
-   * stock_quantity (how much of the product is available in stores)*/
 
-CREATE TABLE products (
-    position INT NOT NULL,
-    item_id VARCHAR(100) NULL,
-    product_name VARCHAR(100) NULL,
-    department_name VARCHAR(100) NULL,
-    price DECIMAL(10,2) NULL,
-    stock_quantity INT NULL,
-    PRIMARY KEY (position)
+CREATE TABLE products(
+    item_id INT AUTO_INCREMENT NOT NULL,
+    product_name VARCHAR(45) NOT NULL,
+    product_sales DECIMAL(10,2) DEFAULT 0,
+    department_name VARCHAR(45) NOT NULL,
+    price DECIMAL(10,2) NOT NULL,
+    stock_quantity INT(10) NOT NULL,
+    primary key(item_id)
 );
 
 SELECT * FROM products;
 
-/*Populate this database with around 10 different products. (i.e. Insert "mock" data rows into this database and table).*/
-
-INSERT INTO products (product_name, department_name, price, stock_quntity)
+INSERT INTO products (product_name, department_name, price, stock_quantity)
 VALUES 
 ("iPad", "Computers", 499.99, 100),
 ("Jeggings", "Apparels", 29.99, 84),
@@ -40,7 +30,7 @@ VALUES
 ("Bath Towels", "Necessities", 19.99, 88),
 ("Earpuff", "Apparels", 9.99, 1);
 
-CREATE TABLE departments (
+CREATE TABLE departments(
     department_id INT AUTO_INCREMENT NOT NULL,
     department_name VARCHAR(45) NOT NULL,
     over_head_costs DECIMAL(10,2) NOT NULL,

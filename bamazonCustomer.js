@@ -19,7 +19,7 @@ connection.connect(function(err) {
 // display all of the items available for sale 
 
 function loadProduct() {
-    connection.query("SELECT * FROOM products", function(err,res) {
+    connection.query("SELECT * FROM products", function(err,res) {
         if (err) throw err;
         console.table(res);
         askCustomer(res);
