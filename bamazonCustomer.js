@@ -1,6 +1,6 @@
 // node JS - mysql & inquire
 var mysql = require("mysql");
-var inquirer = require("inquire");
+var inquirer = require("inquirer");
 
 // Connect first
 var connection = mysql.createConnection({
