@@ -62,8 +62,76 @@ function managerOptions(products) {
 // view products for sale function
 
 // view low inventory function
-
+function loadLowInventory() {
+    connection.query("SELECT * FROM products WHERE stock_quantity <= 5", function(err,res) {
+        if (err) throw err;
+        console.table(res);
+        managerMenu();
+    });
+}
 
 // add to inventory function
 
+function addInventory(inventory) {
+    console.table(inventory);
+    inquirer
+    .prompt([
+        {
+            type: "input",
+            name: "choice",
+            message: "What is the ID of the item you would like to add?",
+            validate: function(val) {
+                return !isNaN(val);
+            }
+        }
+    ])
+    .then(function(val) {
+        var choiceId = parseInt(val.choice);
+        var product = checkInventory(choiceId, inventory);
+
+        if (product) {
+            promptManagerForQuantity(product);
+        }
+        else {
+            console.log("that item is not in the inventory.");
+            managerMenu();
+        }
+    });
+}
+
+function promptManagerForQuantity(product) {
+    inquirer
+    .prompt([
+        {
+            type: "input",
+            name: "quantity",
+            message: "How many?",
+            validate: function(val) {
+                return val > 0;
+            }
+        }
+    ])
+    .then(function(val) {
+        var quantity = parseInt(val.quantity);
+        addQuantity(product,quantity);
+    });
+}
+
+function addQuantity(product,quantity) {
+    connection.query(
+        "UPDATE products SET stock_quantity = ? WHERE item_id = ?",
+        [product.stock_quantity + quantity, product.item_id],
+        function(err, res) {
+            console.log("Successfully added " + quantity + " " + product.product_name +"");
+            managerMenu();
+        }
+    );
+}
+
 // add new product function
+
+function addNewProduct() {
+    getDepartments(function(err, departments) {
+        getProductInfo(departments).then(insertNewProduct);
+    });
+}
