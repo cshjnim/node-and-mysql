@@ -33,7 +33,7 @@ function managerOptions(products) {
     .prompt({
         type: "list",
         name: "choice",
-        choiceS: ["View Products for Sale", "View Low Inventory", "Add New Product", "Quit"],
+        choices: ["View Products for Sale", "View Low Inventory", "Add to Inventory", "Add New Product", "Quit"],
         message: "What do you want to check?"
     })
     .then(function(val){
@@ -137,8 +137,7 @@ function addNewProduct() {
 }
 
 function getProductInfo(departments) {
-    return inquirer
-    .prompt([
+    return inquirer.prompt([
         {
             type: "input",
             name: "product_name",
@@ -183,13 +182,13 @@ function insertNewProduct(val) {
     );
 }
 
-function getDepartments(cb) {
-    connection.query("SELECT * FROM departments", cb);
+function getDepartments(callback) {
+    connection.query("SELECT * FROM departments", callback);
 }
 
 function getDepartmentNames(departments) {
     return departments.map(function(department) {
-        return departments.department_name;
+        return department.department_name;
     });
 }
 
