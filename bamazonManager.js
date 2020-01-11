@@ -135,3 +135,38 @@ function addNewProduct() {
         getProductInfo(departments).then(insertNewProduct);
     });
 }
+
+function getProductInfo(departments) {
+    return inquirer
+    .prompt([
+        {
+            type: "input",
+            name: "product_name",
+            message: "What is the name of the product to add?"
+        },
+        {
+            type: "list",
+            name: "department_name",
+            choices: getDepartmentNames(departments),
+            message: "Which department of your adding product?"
+        },
+        {
+            type: "input",
+            name: "price",
+            message: "How much does it cost?",
+            validate: function(val) {
+                return val > 0;
+            }
+        },
+        {
+            type: "input",
+            name: "quantity",
+            message: "How many do we have?",
+            validate: function(val) {
+                return !isNaN(val);
+            }
+        }
+    ]);
+}
+
+// add new product to Database
