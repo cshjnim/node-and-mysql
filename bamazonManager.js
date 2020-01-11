@@ -17,7 +17,7 @@ connection.connect(function(err){
         console.error("error connecting: " + err.stack);
     }
     managerMenu();
-})
+});
 
 // list a set of menu options (view procuts for sale, view low inventory, add to inventory, add new product)
 
@@ -63,7 +63,7 @@ function managerOptions(products) {
 
 // view low inventory function
 function loadLowInventory() {
-    connection.query("SELECT * FROM products WHERE stock_quantity <= 5", function(err,res) {
+    connection.query("SELECT * FROM products WHERE stock_quantity <= 5", function(err, res) {
         if (err) throw err;
         console.table(res);
         managerMenu();
@@ -121,7 +121,7 @@ function addQuantity(product,quantity) {
     connection.query(
         "UPDATE products SET stock_quantity = ? WHERE item_id = ?",
         [product.stock_quantity + quantity, product.item_id],
-        function(err, res) {
+        function() {
             console.log("Successfully added " + quantity + " " + product.product_name +"");
             managerMenu();
         }
@@ -174,17 +174,17 @@ function insertNewProduct(val) {
     connection.query(
         "INSERT INTO products (product_name, department_name, price, stock_quantity) VALUES (?, ?, ?, ?)",
         [val.product_name, val.department_name, val.price, val.quantity],
-        function(err, res) {
+        function(err,res) {
             if (err) throw err;
-            console.log(val.product_name + " ADDED TO BAMAZON!");
+            console.log(val.product_name + " ADDED TO BAMAZON!\n");
             managerMenu();
         }
     );
 }
 
-function getDepartments(callback) {
-    connection.query("SELECT * FROM departments", callback);
-}
+function getDepartments(cb) {
+    connection.query("SELECT * FROM departments", cb);
+  }
 
 function getDepartmentNames(departments) {
     return departments.map(function(department) {
