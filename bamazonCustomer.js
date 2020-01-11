@@ -14,7 +14,7 @@ var connection = mysql.createConnection({
 
 connection.connect(function(err) {
     if (err) {
-        console.error("error connecting: " + err.stack);
+        console.error(err);
     }
     loadProduct();
 });
@@ -38,7 +38,7 @@ function askCustomer(inventory) {
         type: "input",
         message: "What is the ID of the item you would you like to purchase? [Quit with Q}",
         validate: function(val) {
-            return !isNaN(Val) || val.toLowerCase() === "q";
+            return !isNaN(val) || val.toLowerCase() === "q";
         }
     }])
     .then(function(val) {
